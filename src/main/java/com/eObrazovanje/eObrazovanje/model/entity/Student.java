@@ -1,6 +1,5 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
-import com.eObrazovanje.eObrazovanje.model.entity.Smer;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
