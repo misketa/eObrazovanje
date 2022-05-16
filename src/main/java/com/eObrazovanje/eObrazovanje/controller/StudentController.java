@@ -1,6 +1,6 @@
 package com.eObrazovanje.eObrazovanje.controller;
 
-import com.eObrazovanje.eObrazovanje.exeptions.StudentNotFoundExeption;
+import  com.eObrazovanje.eObrazovanje.exeptions.StudentNotFoundExeption;
 import com.eObrazovanje.eObrazovanje.model.dto.StudentDTO;
 import com.eObrazovanje.eObrazovanje.model.entity.Student;
 import com.eObrazovanje.eObrazovanje.payload.requests.StudentPostRequest;
