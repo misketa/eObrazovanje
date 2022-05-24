@@ -1,5 +1,6 @@
 package com.eObrazovanje.eObrazovanje.repository;
 
+import com.eObrazovanje.eObrazovanje.model.entity.Admin;
 import com.eObrazovanje.eObrazovanje.model.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
 
     Optional<Student> findById(Long studentId);
+
+    Optional<Student> findByUserName(String korisnickoIme);
 }

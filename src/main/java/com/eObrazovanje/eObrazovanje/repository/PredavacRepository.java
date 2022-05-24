@@ -10,6 +10,8 @@ public interface PredavacRepository extends JpaRepository<Predavac,Long> {
     Predavac save(Predavac predavac);
     void deleteById(Long id);
     Optional<Predavac> findById(Long predavacaId);
+    Optional<Predavac> findByUserName(String korisnickoIme);
+
 
 
 }
