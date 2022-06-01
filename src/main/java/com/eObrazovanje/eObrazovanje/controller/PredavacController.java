@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 @RestController
 @RequestMapping(path = "/api/predavaci")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PredavacController {
 
     private final PredavacRepository predavacRepository;

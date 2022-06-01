@@ -24,5 +24,4 @@ public class Predavac extends Korisnik{
             inverseJoinColumns = @JoinColumn(name = "predmet_id"))
     Set<Predmet> likedPredmet;
 
-
 }

@@ -19,7 +19,7 @@ public abstract class Korisnik {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admini_id", unique = true, nullable = false)
+    @Column(name = "korisnik_id", unique = true, nullable = false)
     private Long korisnik_id;
 
     @Column(name = "korisnickoIme", unique = true, nullable = false)
@@ -45,7 +45,4 @@ public abstract class Korisnik {
             joinColumns = @JoinColumn(name = "korisnik_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
-
-
-
 }
