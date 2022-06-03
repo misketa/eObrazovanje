@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {PredavacService, Predmet} from "../../services/predavac.service";
 @Component({
   selector: 'app-predavac',
   templateUrl: './predavac.component.html',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PredavacComponent implements OnInit {
 
-  constructor() { }
+  predmeti? : Predmet[];
+
+  constructor(private predavacService: PredavacService) { }
 
   ngOnInit(): void {
+  }
+
+  SviPredmeti(){
+    console.log(this.predmeti)
+    this.predavacService.getPredmeti(1).subscribe((predmeti)=>{
+      this.predmeti = predmeti;
+    })
   }
 
 }

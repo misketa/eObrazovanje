@@ -13,6 +13,9 @@ import { FinansijskaKarticaComponent } from './components/finansijska-kartica/fi
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DokumentComponent } from './components/dokument/dokument.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PredavacService } from './services/predavac.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,10 +32,11 @@ import { DokumentComponent } from './components/dokument/dokument.component';
     DokumentComponent
   ],
   imports: [
-    RouterModule.forRoot([]),
+    HttpClientModule,
+    AppRoutingModule,
     BrowserModule
   ],
-  providers: [],
+  providers: [PredavacService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

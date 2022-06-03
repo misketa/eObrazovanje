@@ -1,1 +1,9 @@
-<p>predavac works!</p>
+<div>
+    <p>predavac works!</p>
+    <button (click)="SviPredmeti()">Svi predmeti</button>
+    <ul>
+        <li *ngFor="let predmet of predmeti">
+            <span>{{predmet.id}}</span>
+        </li> 
+    </ul>
+</div>
