@@ -31,6 +31,8 @@ public class StudentImpl implements StudentService {
     @Override
     public Student save(StudentDTO studentDTO) {
         Student student = new Student();
+        student.setKorisnickoIme(studentDTO.getIme());
+        student.setLozinka(studentDTO.getIme());
         student.setIme(studentDTO.getIme());
         student.setPrezime(studentDTO.getPrezime());
         student.setJmbg(studentDTO.getJmbg());
@@ -39,7 +41,7 @@ public class StudentImpl implements StudentService {
         student.setGodinaUpisa(studentDTO.getGodinaUpisa());
         student.setStatusStudenta(studentDTO.getStatusStudenta());
         student.setBudzet(studentDTO.getBudzet());
-        student.setIstorijaStudiranja(studentDTO.getIstorijaStudiranja());
+        //student.setIstorijaStudiranja(studentDTO.getIstorijaStudiranja());
 
         return studentRepository.save(student);
     }
@@ -63,7 +65,7 @@ public class StudentImpl implements StudentService {
         student.setGodinaUpisa(studentPostRequest.getGodinaUpisa());
         student.setStatusStudenta(studentPostRequest.getStatusStudenta());
         student.setBudzet(studentPostRequest.getBudzet());
-        student.setIstorijaStudiranja(studentPostRequest.getIstorijaStudiranja());
+        //student.setIstorijaStudiranja(studentPostRequest.getIstorijaStudiranja());
 
         return studentRepository.save(student);
 

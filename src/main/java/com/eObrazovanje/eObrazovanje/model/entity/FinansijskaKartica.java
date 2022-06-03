@@ -16,8 +16,8 @@ public class FinansijskaKartica {
     @Column(name = "stanje", unique = false, nullable = false)
     private int stanje;
 
-    @Column(name = "listaUplata", unique = false , nullable = false)
-    private List listaUplata;
+   // @Column(name = "listaUplata", unique = false , nullable = false)
+   // private List<String> listaUplata;
 
     @OneToOne(mappedBy = "kartica")
     private Student student;
@@ -25,10 +25,10 @@ public class FinansijskaKartica {
     public FinansijskaKartica() {
     }
 
-    public FinansijskaKartica(Long kartica_id, int stanje, List listaUplata, Student student) {
+    public FinansijskaKartica(Long kartica_id, int stanje, List<String> listaUplata, Student student) {
         this.kartica_id = kartica_id;
         this.stanje = stanje;
-        this.listaUplata = listaUplata;
+       // this.listaUplata = listaUplata;
         this.student = student;
     }
 
@@ -47,15 +47,15 @@ public class FinansijskaKartica {
     public void setStanje(int stanje) {
         this.stanje = stanje;
     }
-
-    public List getListaUplata() {
+/*
+    public List<String> getListaUplata() {
         return listaUplata;
     }
 
-    public void setListaUplata(List listaUplata) {
+    public void setListaUplata(List<String> listaUplata) {
         this.listaUplata = listaUplata;
     }
-
+*/
     public Student getStudent() {
         return student;
     }

@@ -30,8 +30,8 @@ public class Student extends Korisnik{
     @Column(name = "budzet", unique = false, nullable = false)
     private Boolean budzet;
 
-    @Column(name = "istorijaStudiranja", unique = false, nullable = false)
-    private List istorijaStudiranja;
+   // @Column(name = "istorijaStudiranja", unique = false, nullable = false)
+    //private List istorijaStudiranja;
 
     @ManyToOne
     @JoinColumn(name = "smer_id")
@@ -42,7 +42,7 @@ public class Student extends Korisnik{
     private List<Dokument> dokumenti = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "kartica_id", referencedColumnName = "id")
+    @JoinColumn(name = "kartica_id")
     private FinansijskaKartica kartica;
 
 

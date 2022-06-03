@@ -41,13 +41,16 @@ public class Predmet {
     @JsonIgnore
     private Smer smer;
 
-    @ManyToMany(mappedBy = "likedPredmet")
-    Set<Predavac> likes;
+
+    @ManyToMany(mappedBy = "predmeti")
+    @JsonIgnore
+    Set<Predavac> predavaci;
 
     @OneToOne(mappedBy = "predmet")
     private Ispit ispit;
 
     @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PredispitneObaveze> predispitne = new ArrayList<>();
 
 }

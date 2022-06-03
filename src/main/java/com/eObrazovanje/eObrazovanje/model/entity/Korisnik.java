@@ -42,7 +42,7 @@ public abstract class Korisnik {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "korisnik_id", referencedColumnName = "id"),
+            joinColumns = @JoinColumn(name = "korisnik_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 }
