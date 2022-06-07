@@ -1,6 +1,7 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,8 +16,8 @@ public class IspitniRok {
     @Column(name = "naziv", unique = false, nullable = false)
     private String naziv;
 
-    @Column(name = "listIspita", unique = false, nullable = false)
-    private List listaIspita;
+   // @Column(name = "listIspita", unique = false, nullable = false)
+    //private List<String> listaIspita=new ArrayList<>();
 
     @OneToOne(mappedBy = "rokovi")
     private Ispit ispit;
@@ -24,10 +25,10 @@ public class IspitniRok {
     public IspitniRok() {
     }
 
-    public IspitniRok(Long rokovi_id, String naziv, List listaIspita, Ispit ispit) {
+    public IspitniRok(Long rokovi_id, String naziv, List<String> listaIspita, Ispit ispit) {
         this.rokovi_id = rokovi_id;
         this.naziv = naziv;
-        this.listaIspita = listaIspita;
+       // this.listaIspita = listaIspita;
         this.ispit = ispit;
     }
 
@@ -47,14 +48,14 @@ public class IspitniRok {
         this.naziv = naziv;
     }
 
-    public List getListaIspita() {
+   /* public List<String> getListaIspita() {
         return listaIspita;
     }
 
-    public void setListaIspita(List listaIspita) {
+    public void setListaIspita(List<String> listaIspita) {
         this.listaIspita = listaIspita;
     }
-
+*/
     public Ispit getIspit() {
         return ispit;
     }

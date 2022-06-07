@@ -32,11 +32,11 @@ public class UserPrincipalDetailsService implements UserDetailsService {
         Korisnik korisnik;
 
         try {
-            korisnik = predavacRepository.findByUserName(korisnickoIme).get();
+            korisnik = predavacRepository.findByKorisnickoIme(korisnickoIme).get();
         }
         catch (Exception userException) {
             try {
-                korisnik = studentRepository.findByUserName(korisnickoIme).get();
+                korisnik = studentRepository.findByKorisnickoIme(korisnickoIme).get();
             }
             catch (Exception adminException) {
                 throw new UsernameNotFoundException("No user present with username : " + korisnickoIme);

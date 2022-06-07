@@ -21,7 +21,7 @@ public class StudentDTO implements Serializable {
     private String godinaUpisa;
     private String statusStudenta;
     private Boolean budzet;
-    private List istorijaStudiranja;
+    //private List istorijaStudiranja;
 
 
 }

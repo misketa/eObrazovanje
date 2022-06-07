@@ -29,8 +29,8 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api", "/api/studenti", "/h2-console/**", "/auth/**").permitAll()
-                .antMatchers("/api/smerovi/**").hasRole("ADMIN")
+                .antMatchers("/api", "/api/studenti","/api/studenti/**", "/h2-console/**", "/auth/**").permitAll()
+                .antMatchers("/api/smerovi/**","/api/studenti/save").hasRole("ADMIN")7
                 .anyRequest()
                 .authenticated()
                 .and()

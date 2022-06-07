@@ -18,7 +18,7 @@ public class KorisnikImpl implements KorisnikService {
 
     @Override
     public Korisnik findByUserName(String korisnickoIme) {
-        Optional<Korisnik> user = korisnikRepository.findFirstByUserName(korisnickoIme);
+        Optional<Korisnik> user = korisnikRepository.findFirstByKorisnickoIme(korisnickoIme);
         if (!user.isEmpty()) {
             return user.get();
         }

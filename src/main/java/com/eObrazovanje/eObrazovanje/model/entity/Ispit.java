@@ -12,11 +12,11 @@ public class Ispit {
     private Long ispit_id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "predmet_id", referencedColumnName = "id")
+    @JoinColumn(name = "predmet_id")
     private Predmet predmet;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rokovi_id", referencedColumnName = "id")
+    @JoinColumn(name = "rokovi_id")
     private IspitniRok rokovi;
 
     public Ispit() {

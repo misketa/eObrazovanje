@@ -14,14 +14,14 @@ import java.util.Set;
 @Table(name = "predavaci")
 public class Predavac extends Korisnik{
 
-    @Column(name = "plata", unique = true, nullable = false)
+    @Column(name = "plata", unique = false, nullable = true)
     private String plata;
 
     @ManyToMany
     @JoinTable(
-            name = "predmet_like",
+            name = "predmet_predavac",
             joinColumns = @JoinColumn(name = "predavac_id"),
             inverseJoinColumns = @JoinColumn(name = "predmet_id"))
-    Set<Predmet> likedPredmet;
+    Set<Predmet> predmeti;
 
 }
