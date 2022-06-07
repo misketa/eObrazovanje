@@ -47,7 +47,8 @@ public class Predmet {
     @OneToOne(mappedBy = "predmet")
     private Ispit ispit;
 
-    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL /*orphanRemoval = true*/)
+    @OneToMany(mappedBy = "predmet", cascade = CascadeType.ALL ,orphanRemoval = true)
+    @JsonIgnore
     private List<PredispitneObaveze> predispitne = new ArrayList<>();
 
 }
