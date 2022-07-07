@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { StudentComponent } from './components/student/student.component';
@@ -34,7 +35,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     HttpClientModule,
     AppRoutingModule,
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [PredavacService],
   bootstrap: [AppComponent]

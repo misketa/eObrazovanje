@@ -1,1 +1,19 @@
-<p>finansijska-kartica works!</p>
+
+
+<div>
+    <label for="iznos">Unesi iznos uplate: </label>
+    <input id="iznos" [(ngModel)]="iznos" type="number" placeholder="iznos">
+</div>
+<button (click)="Uplati()">Uplati!</button>
+<span>
+    {{poruka}}
+</span>
+<div>
+    <ul>
+        <li *ngFor="let uplata of kartica?.uplate">
+            <span>{{uplata.iznos}}</span>
+            <span>{{uplata.datum}}</span>
+        </li> 
+    </ul>
+    
+    </div>
