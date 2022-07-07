@@ -2,6 +2,7 @@ package com.eObrazovanje.eObrazovanje.model.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,19 +17,22 @@ public class FinansijskaKartica {
     @Column(name = "stanje", unique = false, nullable = false)
     private int stanje;
 
-   // @Column(name = "listaUplata", unique = false , nullable = false)
-   // private List<String> listaUplata;
+
+    @OneToMany(mappedBy = "kartica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Uplata> uplate = new ArrayList<>();
+
+
 
     @OneToOne(mappedBy = "kartica")
     private Student student;
 
     public FinansijskaKartica() {
+        stanje=0;
     }
 
-    public FinansijskaKartica(Long kartica_id, int stanje, List<String> listaUplata, Student student) {
+    public FinansijskaKartica(Long kartica_id, int stanje, Student student) {
         this.kartica_id = kartica_id;
         this.stanje = stanje;
-       // this.listaUplata = listaUplata;
         this.student = student;
     }
 
@@ -47,20 +51,19 @@ public class FinansijskaKartica {
     public void setStanje(int stanje) {
         this.stanje = stanje;
     }
-/*
-    public List<String> getListaUplata() {
-        return listaUplata;
-    }
 
-    public void setListaUplata(List<String> listaUplata) {
-        this.listaUplata = listaUplata;
-    }
-*/
     public Student getStudent() {
         return student;
     }
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+    public List<Uplata> getUplate() {
+        return uplate;
+    }
+
+    public void setUplate(List<Uplata> uplate) {
+        this.uplate = uplate;
     }
 }

@@ -30,7 +30,7 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api", "/api/studenti","/api/studenti/**", "/h2-console/**", "/auth/**").permitAll()
-                .antMatchers("/api/smerovi/**","/api/studenti/save").hasRole("ADMIN")7
+                .antMatchers("/api/smerovi/**","/api/studenti/save").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

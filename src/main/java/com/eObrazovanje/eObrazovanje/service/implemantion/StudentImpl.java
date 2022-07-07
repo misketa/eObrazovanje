@@ -1,6 +1,7 @@
 package com.eObrazovanje.eObrazovanje.service.implemantion;
 
 import com.eObrazovanje.eObrazovanje.model.dto.StudentDTO;
+import com.eObrazovanje.eObrazovanje.model.entity.FinansijskaKartica;
 import com.eObrazovanje.eObrazovanje.model.entity.Student;
 import com.eObrazovanje.eObrazovanje.payload.requests.StudentPostRequest;
 import com.eObrazovanje.eObrazovanje.repository.StudentRepository;
@@ -41,6 +42,7 @@ public class StudentImpl implements StudentService {
         student.setGodinaUpisa(studentDTO.getGodinaUpisa());
         student.setStatusStudenta(studentDTO.getStatusStudenta());
         student.setBudzet(studentDTO.getBudzet());
+        student.setKartica(new FinansijskaKartica());
         //student.setIstorijaStudiranja(studentDTO.getIstorijaStudiranja());
 
         return studentRepository.save(student);
