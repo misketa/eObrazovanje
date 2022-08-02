@@ -8,9 +8,8 @@ describe('FinansijskaKarticaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FinansijskaKarticaComponent ]
-    })
-    .compileComponents();
+      declarations: [FinansijskaKarticaComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

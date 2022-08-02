@@ -1,2 +1,87 @@
 <p>student works!</p>
 <a href="/finansijska-kartica">Finansiska kartica</a>
+<div>
+  <h3>Studenti</h3>
+</div>
+<table class="table table-bordered">
+  <tr>
+    <th>Korisnicko ime</th>
+    <th>Ime</th>
+    <th>Prezime</th>
+    <th>JMBG</th>
+    <th>Telefon</th>
+    <th>Godina studija</th>
+    <th>Godina upisa</th>
+    <th>Status studenta</th>
+    <th>Budzet</th>
+    <th>Smer</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let student of students">
+    <td>
+      {{ student.korisnickoIme }}
+    </td>
+    <td>
+      {{ student.ime }}
+    </td>
+    <td>
+      {{ student.prezime }}
+    </td>
+    <td>
+      {{ student.jmbg }}
+    </td>
+    <td>
+      {{ student.telefon }}
+    </td>
+    <td>
+      {{ student.godinaStudija }}
+    </td>
+    <td>
+      {{ student.godinaUpisa }}
+    </td>
+    <td>
+      {{ student.statusStudenta }}
+    </td>
+    <td>
+      {{ student.budzet }}
+    </td>
+    <td>
+      {{ student.smer }}
+    </td>
+    <td>
+      <button
+        type="button"
+        class="btn btn-primary"
+        aria-label="Edit"
+        (click)="gotoEdit(student)"
+      >
+        <span class="fa fa-edit" aria-hidden="true"></span>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        aria-label="Delete"
+        (click)="deleteStudent(student.student_id)"
+      >
+        <span class="fa fa-trash" aria-hidden="true"></span>
+      </button>
+    </td>
+  </tr>
+</table>
+<div class="right">
+  <button
+    type="button"
+    class="btn btn-primary"
+    aria-label="Add"
+    (click)="gotoAdd()"
+  >
+    <span class="fa fa-plus" aria-hidden="true"></span>
+  </button>
+</div>
+<div class="containerr">
+  <div class="uploads">
+    <p>Documents:</p>
+    <app-dokument></app-dokument>
+  </div>
+</div>

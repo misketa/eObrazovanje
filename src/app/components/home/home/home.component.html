@@ -1,0 +1,69 @@
+<div *ngIf="korisnik.roles == 'STUDENT'">
+  <div class="center">
+    <h2 style="margin-left: auto; margin-right: auto">
+      Hello {{ korisnik.korisnickoIme }}
+    </h2>
+    <hr />
+    <div class="field">
+      <label><b>Ime: </b></label> {{ student.ime }}
+    </div>
+    <div class="field">
+      <label><b>Prezime: </b></label> {{ student.prezime }}
+    </div>
+    <div class="field">
+      <label><b>Korisnicko ime: </b></label> {{ korisnik.korisnickoIme }}
+    </div>
+    <div class="field">
+      <label><b>JMBG: </b></label> {{ student.jmbg }}
+    </div>
+
+    <br />
+  </div>
+</div>
+
+<div *ngIf="korisnik.roles == 'ADMIN'">
+  <div class="center">
+    <h2 style="margin-left: auto; margin-right: auto">
+      Hello {{ korisnik.korisnickoIme }}
+    </h2>
+    <hr />
+    <div class="field">
+      <label><b>Korisnicko ime: </b></label> {{ korisnik.korisnickoIme }}
+    </div>
+    <div class="field">
+      <label><b>Prezime: </b></label> {{ korisnik.prezime }}
+    </div>
+    <div class="field">
+      <label><b>Ime: </b></label> {{ korisnik.ime }}
+    </div>
+    <div class="field">
+      <label><b>JMBG: </b></label> {{ korisnik.jmbg }}
+    </div>
+
+    <br />
+  </div>
+</div>
+
+<div *ngIf="korisnik.roles == 'PREDAVAC'">
+  <div class="center">
+    <h2 style="margin-left: auto; margin-right: auto">
+      Hello {{ korisnik.korisnickoIme }}
+    </h2>
+    <hr />
+    <div class="field">
+      <label><b>Korisnicko ime: </b></label> {{ korisnik.korisnickoIme }}
+    </div>
+    <div class="field">
+      <label><b>Prezime: </b></label> {{ korisnik.prezime }}
+    </div>
+    <div class="field">
+      <label><b>Ime: </b></label> {{ korisnik.ime }}
+    </div>
+
+    <div class="field">
+      <label><b>Jmbg: </b></label> {{ korisnik.jmbg }}
+    </div>
+
+    <br />
+  </div>
+</div>

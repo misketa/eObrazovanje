@@ -1,1 +1,23 @@
-<p>dokument works!</p>
+<div>
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <ul>
+      <li *ngFor="let f of files">
+        <a href="{{ f.url }}">{{ f.name }}</a>
+      </li>
+      <div class="cont-classs">
+        <input
+          type="file"
+          name="filee"
+          id="filee"
+          class="inputfilee"
+          (change)="onFileSelect($event)"
+        />
+        <label for="filee">{{ fileName ? fileName : "Choose a file" }}</label>
+        <input type="text" value="{{ username }}" hidden />
+      </div>
+      <div class="cont-classs" *ngIf="uploaded">
+        <button class="btn" type="submit">Upload</button>
+      </div>
+    </ul>
+  </form>
+</div>

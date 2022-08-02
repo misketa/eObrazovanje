@@ -8,9 +8,8 @@ describe('PredavacComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PredavacComponent ]
-    })
-    .compileComponents();
+      declarations: [PredavacComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
