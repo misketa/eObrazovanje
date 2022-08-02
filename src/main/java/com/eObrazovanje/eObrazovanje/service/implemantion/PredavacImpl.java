@@ -16,7 +16,7 @@ public class PredavacImpl implements PredavacService {
     public PredavacImpl(PredavacRepository predavacRepository){this.predavacRepository=predavacRepository;}
 
     @Override
-    public Predavac findOne(Long predavacId){return (Predavac)predavacRepository.findById(predavacId).orElse(null);}
+    public Predavac findById(Long predavacId){return predavacRepository.findById(predavacId).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));}
 
     @Override
     public List<Predavac> findAll() { return predavacRepository.findAll(); }
@@ -43,6 +43,8 @@ public class PredavacImpl implements PredavacService {
                         "Book with id " + id + " not found"));
 
 
+        predavac.setKorisnickoIme(predavacPostRequest.getKorisnickoIme());
+        predavac.setLozinka(predavacPostRequest.getLozinka());
         predavac.setIme(predavacPostRequest.getIme());
         predavac.setPrezime(predavacPostRequest.getPrezime());
         predavac.setJmbg(predavacPostRequest.getJmbg());

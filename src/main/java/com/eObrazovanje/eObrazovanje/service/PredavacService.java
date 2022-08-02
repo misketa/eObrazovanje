@@ -6,7 +6,7 @@ import com.eObrazovanje.eObrazovanje.payload.requests.PredavacPostRequest;
 import java.util.List;
 
 public interface PredavacService {
-    Predavac findOne(Long predavacID);
+    Predavac findById(Long predavacID);
     List<Predavac> findAll();
     Predavac save(PredavacDTO predavacDTO);
     void remove (Long id);

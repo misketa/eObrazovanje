@@ -1,18 +1,21 @@
 package com.eObrazovanje.eObrazovanje;
 
-import com.eObrazovanje.eObrazovanje.model.entity.Smer;
-import com.eObrazovanje.eObrazovanje.model.entity.Student;
-import com.eObrazovanje.eObrazovanje.repository.StudentRepository;
-import org.springframework.boot.CommandLineRunner;
+import org.apache.log4j.BasicConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.logging.Logger;
+
 @SpringBootApplication
 public class EObrazovanjeApplication {
 
+	public static Logger log = Logger.getLogger(EObrazovanjeApplication.class.getName());
+
 	public static void main(String[] args) {
+		BasicConfigurator.configure();
 		SpringApplication.run(EObrazovanjeApplication.class, args);
+		log.info("Started server");
 	}
 /*
 	@Bean

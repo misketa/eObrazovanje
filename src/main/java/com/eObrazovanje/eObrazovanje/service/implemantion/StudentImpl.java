@@ -22,8 +22,8 @@ public class StudentImpl implements StudentService {
     }
 
     @Override
-    public Student findOne(Long studentId) {
-        return (Student) studentRepository.findById(studentId).orElse(null);
+    public Student findById(Long student_id) {
+        return studentRepository.findById(student_id).orElseThrow(() -> new RuntimeException("Nije pronadjen student"));
     }
 
     @Override
@@ -54,9 +54,9 @@ public class StudentImpl implements StudentService {
 
     @Override
     public Student update(Long id, StudentPostRequest studentPostRequest) {
-        Student student = (Student) studentRepository.findById(id)
+        Student student =  studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Book with id " + id + " not found"));
+                        "Student with id " + id + " not found"));
 
 
         student.setIme(studentPostRequest.getIme());
@@ -67,6 +67,8 @@ public class StudentImpl implements StudentService {
         student.setGodinaUpisa(studentPostRequest.getGodinaUpisa());
         student.setStatusStudenta(studentPostRequest.getStatusStudenta());
         student.setBudzet(studentPostRequest.getBudzet());
+        student.setKartica(studentPostRequest.getKartica());
+        student.setSmer(studentPostRequest.getSmer());
         //student.setIstorijaStudiranja(studentPostRequest.getIstorijaStudiranja());
 
         return studentRepository.save(student);

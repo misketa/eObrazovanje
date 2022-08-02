@@ -1,10 +1,8 @@
 package com.eObrazovanje.eObrazovanje.controller;
 
-import  com.eObrazovanje.eObrazovanje.exeptions.StudentNotFoundExeption;
 import com.eObrazovanje.eObrazovanje.model.dto.StudentDTO;
 import com.eObrazovanje.eObrazovanje.model.entity.Student;
 import com.eObrazovanje.eObrazovanje.payload.requests.StudentPostRequest;
-import com.eObrazovanje.eObrazovanje.repository.StudentRepository;
 import com.eObrazovanje.eObrazovanje.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +16,23 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
 
-    private final StudentRepository studentRepository;
     private final StudentService studentService;
 
-    StudentController(StudentRepository studentRepository, StudentService studentService) {
-        this.studentRepository = studentRepository;
+    StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> findOne(@PathVariable Long id) {
-        Student student = (Student) studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundExeption("Student sa datim id ne postoji"));
+        Student student =  studentService.findById(id);
 
         return new ResponseEntity<>(student, HttpStatus.FOUND);
     }
 
     @GetMapping
     public ResponseEntity<List<Student>> findAll() {
-        List<Student> artikli = studentService.findAll();
-        return new ResponseEntity<>(artikli, HttpStatus.OK);
+        List<Student> studenti = studentService.findAll();
+        return new ResponseEntity<>(studenti, HttpStatus.OK);
     }
 
     @PostMapping("/save")
@@ -58,7 +53,7 @@ public class StudentController {
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteArtikal(@PathVariable Long id) {
 
-        studentRepository.deleteById(id);
+        studentService.remove(id);
 
         return ResponseEntity.noContent().build();
     }

@@ -17,7 +17,7 @@ public class PredmetImpl implements PredmetService {
     public PredmetImpl(PredmetRepository predmetRepository){this.predmetRepository=predmetRepository;}
 
     @Override
-    public Predmet findOne(Long predmet_id){return (Predmet)predmetRepository.findById(predmet_id).orElse(null);}
+    public Predmet findById(Long predmet_id){return predmetRepository.findById(predmet_id).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));}
     @Override
     public List<Predmet> findAll() { return predmetRepository.findAll(); }
 
@@ -32,23 +32,16 @@ public class PredmetImpl implements PredmetService {
         predmet.setSmer(predmetDTO.getSmer());
         predmet.setIspit(predmetDTO.getIspit());
 
-
-
-
-
         return predmetRepository.save(predmet);
     }
     @Override
     public void remove(Long id) { predmetRepository.deleteById(id); }
-
-
 
     @Override
     public Predmet update(Long id, PredmetPostRequest predmetPostRequest) {
         Predmet predmet = (Predmet) predmetRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Book with id " + id + " not found"));
-
 
         predmet.setPredmet_id(predmetPostRequest.getPredmet_id());
         predmet.setNaziv(predmetPostRequest.getNaziv());

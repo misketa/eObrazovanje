@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudentService {
 
-    Student findOne(Long studentId);
+    Student findById(Long student_id);
     List<Student> findAll();
     Student save(StudentDTO studentDTO);
     void remove (Long id);

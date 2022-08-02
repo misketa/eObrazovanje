@@ -7,7 +7,7 @@ import com.eObrazovanje.eObrazovanje.payload.requests.PredavacPostRequest;
 import com.eObrazovanje.eObrazovanje.payload.requests.PredmetPostRequest;
 import java.util.List;
 public interface PredmetService {
-    Predmet findOne(Long predmet_id);
+    Predmet findById(Long predmet_id);
     List<Predmet> findAll();
     Predmet save(PredmetDTO predmetDTO);
     void remove (Long predmet_id);

@@ -1,5 +1,7 @@
 package com.eObrazovanje.eObrazovanje.payload.requests;
 
+import com.eObrazovanje.eObrazovanje.model.entity.FinansijskaKartica;
+import com.eObrazovanje.eObrazovanje.model.entity.Smer;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -41,6 +43,10 @@ public class StudentPostRequest {
 
     private Boolean budzet;
 
-    @NotEmpty
+    private FinansijskaKartica kartica;
+
+    private Smer smer;
+
+
     private List istorijaStudiranja;
 }

@@ -15,6 +15,8 @@ public class StudentDTO implements Serializable {
 
     private String ime;
     private String prezime;
+    private String korisnickoIme;
+    private String lozinka;
     private String jmbg;
     private String telefon;
     private String godinaStudija;

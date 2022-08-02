@@ -1,9 +1,6 @@
 package com.eObrazovanje.eObrazovanje.controller;
 import  com.eObrazovanje.eObrazovanje.exeptions.PredavacNotFoundExeption;
-import com.eObrazovanje.eObrazovanje.model.dto.KorisnikDTO;
 import com.eObrazovanje.eObrazovanje.model.dto.PredavacDTO;
-import com.eObrazovanje.eObrazovanje.model.dto.PredmetDTO;
-import com.eObrazovanje.eObrazovanje.model.entity.Korisnik;
 import com.eObrazovanje.eObrazovanje.model.entity.Predavac;
 import com.eObrazovanje.eObrazovanje.model.entity.Predmet;
 import com.eObrazovanje.eObrazovanje.payload.requests.PredavacPostRequest;
@@ -11,7 +8,6 @@ import com.eObrazovanje.eObrazovanje.repository.PredavacRepository;
 import com.eObrazovanje.eObrazovanje.service.PredavacService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,23 +19,20 @@ import java.util.Set;
 @CrossOrigin(origins = "http://localhost:4200")
 public class PredavacController {
 
-    private final PredavacRepository predavacRepository;
+
     private final PredavacService predavacService;
 
-    PredavacController(PredavacRepository predavacRepository,PredavacService predavacService){
+    PredavacController(PredavacService predavacService){
         this.predavacService=predavacService;
-        this.predavacRepository=predavacRepository;
     }
     @GetMapping("/{id}")
     public ResponseEntity<Predavac> findOne(@PathVariable Long id){
-        Predavac predavac=(Predavac) predavacRepository.findById(id)
-                .orElseThrow(() -> new PredavacNotFoundExeption("Predavac sa datim id ne postoji"));
+        Predavac predavac= predavacService.findById(id);
         return new ResponseEntity<>(predavac, HttpStatus.FOUND);
     }
     @GetMapping("/{id}/predmeti")
     public ResponseEntity<Set<Predmet>> getAllProfesorCourses(@PathVariable Long id){
-        Predavac predavac=(Predavac) predavacRepository.findById(id)
-                .orElseThrow(() -> new PredavacNotFoundExeption("Predavac sa datim id ne postoji"));
+        Predavac predavac=(Predavac) predavacService.findById(id);
         return new ResponseEntity<>(predavac.getPredmeti(), HttpStatus.FOUND);
     }
     @GetMapping
@@ -62,7 +55,7 @@ public class PredavacController {
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deletePredavac(@PathVariable Long id) {
 
-        predavacRepository.deleteById(id);
+        predavacService.remove(id);
 
         return ResponseEntity.noContent().build();
     }

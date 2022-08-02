@@ -1,10 +1,12 @@
 package com.eObrazovanje.eObrazovanje.model.dto;
 
+import com.eObrazovanje.eObrazovanje.model.entity.Korisnik;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @AllArgsConstructor
@@ -13,12 +15,17 @@ import java.io.Serializable;
 @Setter
 public class KorisnikDTO implements Serializable {
 
-    private String ime;
-    private String korisnickoIme;
-    private String lozinka;
-    private String prezime;
-    private String jmbg;
-    private String telefon;
-    private String plata;
+    private Long id;
 
+    @NotBlank
+    private String korisnickoIme;
+
+    @NotBlank
+    private String lozinka;
+
+
+    public KorisnikDTO(Korisnik createdUser) {
+        this.korisnickoIme = createdUser.getKorisnickoIme();
+        this.lozinka = createdUser.getLozinka();
+    }
 }

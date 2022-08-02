@@ -8,6 +8,15 @@ import javax.validation.constraints.Size;
 
 @Getter
 public class PredavacPostRequest {
+
+    @NotBlank
+    @Size(min=2,max=50)
+    private String korisnickoIme;
+
+    @NotBlank
+    @Size(min=2,max=50)
+    private String lozinka;
+
     @NotBlank
     @Size(min=2,max=50)
     private String ime;

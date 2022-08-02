@@ -1,13 +1,14 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
-import com.eObrazovanje.eObrazovanje.model.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "korisnici")
-public abstract class Korisnik {
+public class Korisnik {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +41,20 @@ public abstract class Korisnik {
     @Column(name = "telefon", unique = false, nullable = false)
     private String telefon;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "korisnik_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+    @Column(name = "blocked", unique = false, nullable = false)
+    private boolean blocked;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    public Korisnik(String ime, String prezime, String korisnickoIme, String lozinka, String jmbg) {
+
+    }
+
+
 }
