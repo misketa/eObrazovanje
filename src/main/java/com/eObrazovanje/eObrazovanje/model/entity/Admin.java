@@ -1,13 +1,11 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import javax.persistence.*;
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -44,7 +42,5 @@ public class Admin {
 
     @Column(name = "plata", unique = false, nullable = false)
     private String plata;
-
-
 
 }

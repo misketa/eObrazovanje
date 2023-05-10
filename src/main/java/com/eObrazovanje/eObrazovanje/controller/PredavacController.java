@@ -1,16 +1,13 @@
 package com.eObrazovanje.eObrazovanje.controller;
-import  com.eObrazovanje.eObrazovanje.exeptions.PredavacNotFoundExeption;
 import com.eObrazovanje.eObrazovanje.model.dto.PredavacDTO;
 import com.eObrazovanje.eObrazovanje.model.entity.Predavac;
 import com.eObrazovanje.eObrazovanje.model.entity.Predmet;
 import com.eObrazovanje.eObrazovanje.payload.requests.PredavacPostRequest;
-import com.eObrazovanje.eObrazovanje.repository.PredavacRepository;
 import com.eObrazovanje.eObrazovanje.service.PredavacService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -41,14 +38,14 @@ public class PredavacController {
         return new ResponseEntity<>(predavaci, HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<Predavac> save(@Valid @RequestBody PredavacDTO predavacDTO) {
+    public ResponseEntity<Predavac> save( @RequestBody PredavacDTO predavacDTO) {
         Predavac predavac = predavacService.save(predavacDTO);
         return new ResponseEntity<>(predavac, HttpStatus.CREATED);
 
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<Predavac> update(@PathVariable("id") Long id,
-                                          @Valid @RequestBody PredavacPostRequest predavacPostRequest) {
+                                          @RequestBody PredavacPostRequest predavacPostRequest) {
         Predavac update = predavacService.update(id, predavacPostRequest);
         return new ResponseEntity<>(update, HttpStatus.OK);
     }

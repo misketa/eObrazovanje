@@ -26,9 +26,4 @@ public class Role {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
-
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private Set<Korisnik> users = new HashSet<>();
 }

@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,7 +35,7 @@ public class StudentController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Student> save(@Valid @RequestBody StudentDTO studentDTO) {
+    public ResponseEntity<Student> save( @RequestBody StudentDTO studentDTO) {
         Student student = studentService.save(studentDTO);
         return new ResponseEntity<>(student, HttpStatus.CREATED);
 
@@ -44,8 +43,7 @@ public class StudentController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Student> update(@PathVariable("id") Long id,
-                                                @Valid @RequestBody StudentPostRequest studentPostRequest) {
+    public ResponseEntity<Student> update(@PathVariable("id") Long id, @RequestBody StudentPostRequest studentPostRequest) {
         Student update = studentService.update(id, studentPostRequest);
         return new ResponseEntity<>(update, HttpStatus.OK);
     }

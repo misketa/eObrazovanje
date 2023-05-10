@@ -1,15 +1,11 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,6 +22,9 @@ public class Dokument {
     @Column(name = "naziv", unique = false, nullable = false)
     private String naziv;
 
+    @Column(name = "url")
+    private String url;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fajl_id", referencedColumnName = "fajl_id")
     private Fajl fajl;
@@ -33,10 +32,6 @@ public class Dokument {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "tip_dokumenta_id", referencedColumnName = "tip_dokumenta_id")
-    private TipDokumenta tipDokumenta;
 
     @Column(name = "blocked", unique = false, nullable = false)
     private boolean blocked;

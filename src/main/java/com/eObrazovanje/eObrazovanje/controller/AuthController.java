@@ -1,104 +1,86 @@
 package com.eObrazovanje.eObrazovanje.controller;
 
-
-import com.eObrazovanje.eObrazovanje.model.dto.KorisnikDTO;
 import com.eObrazovanje.eObrazovanje.model.entity.Korisnik;
 import com.eObrazovanje.eObrazovanje.payload.requests.LoginRequest;
-import com.eObrazovanje.eObrazovanje.repository.AdminRepository;
-import com.eObrazovanje.eObrazovanje.repository.PredavacRepository;
+import com.eObrazovanje.eObrazovanje.payload.requests.RegisterRequest;
+
+import com.eObrazovanje.eObrazovanje.payload.response.JwtResponse;
 import com.eObrazovanje.eObrazovanje.repository.RoleRepository;
-import com.eObrazovanje.eObrazovanje.repository.StudentRepository;
-import com.eObrazovanje.eObrazovanje.security.JwtResponse;
-import com.eObrazovanje.eObrazovanje.security.JwtUtil;
 import com.eObrazovanje.eObrazovanje.security.UserPrincipal;
-import com.eObrazovanje.eObrazovanje.security.UserPrincipalDetailsService;
+import com.eObrazovanje.eObrazovanje.security.jwt.JwtTokenProvider;
 import com.eObrazovanje.eObrazovanje.service.KorisnikService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
+    private final KorisnikService korisnikService;
+    private final ModelMapper modelMapper;
+    private final AuthenticationManager authenticationManager;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder encoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    private KorisnikService korisnikService;
-
-    @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private PredavacRepository predavacRepository;
-
-
-    @Autowired
-    private UserPrincipalDetailsService userPrincipalDetailsService;
-
-   // @Autowired
-   // PasswordEncoder encoder;
-
-
+    // With not refresh token
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
-
-        Korisnik user = korisnikService.findByKorisnickoIme(loginRequest.getKorisnickoIme());
-
-        if(!user.isBlocked()) {
+    public ResponseEntity<?> authenticateUserWithAccessToken(@Valid @RequestBody LoginRequest loginRequestDTO) throws Exception {
+        try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getKorisnickoIme(), loginRequest.getLozinka()));
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequestDTO.getKorisnickoIme(),
+                            loginRequestDTO.getLozinka())
+            );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            UserPrincipal userDetails =  (UserPrincipal) authentication.getPrincipal();
-            System.out.println(user);
-            String jwt = jwtUtil.generateToken(userDetails);
+            String jwt = jwtTokenProvider.generateTokenWithAuthentication(authentication);
 
-
-            List<String> roles = userDetails.getAuthorities().stream()
-                    .map(item -> item.getAuthority())
+            UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+            List<SimpleGrantedAuthority> roles = userDetails.getAuthorities().stream()
+                    .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                     .collect(Collectors.toList());
 
-
-            return ResponseEntity.ok(new JwtResponse(jwt,
+            return ResponseEntity.ok(new JwtResponse(jwt, null,
                     userDetails.getId(),
                     userDetails.getUsername(),
                     roles));
-        }else {
-            return (ResponseEntity<?>) ResponseEntity.badRequest();
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
 
 
     }
 
-
-
-
-
-
-
-
+    @PostMapping("/register")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 422, message = "Username is already in use")})
+    public String signup(@ApiParam("Signup User") @RequestBody RegisterRequest user) {
+        return "register";
+    }
 }

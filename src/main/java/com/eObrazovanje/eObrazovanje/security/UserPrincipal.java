@@ -8,53 +8,27 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Builder
 public class UserPrincipal implements UserDetails {
     private Long id;
-
     private String korisnickoIme;
-
     @JsonIgnore
     private String lozinka;
-
-    //private Collection<GrantedAuthority> authorities;
-
-    private Collection<? extends GrantedAuthority> authorities;
-
-    public UserPrincipal(Long id, String korisnickoIme, String lozinka,
-                         Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.korisnickoIme = korisnickoIme;
-        this.lozinka = lozinka;
-        this.authorities = authorities;
-    }
-
-    public static UserPrincipal build(Korisnik user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
-
-        return new UserPrincipal(
-                user.getKorisnik_id(),
-                user.getKorisnickoIme(),
-                user.getLozinka(),
-                authorities);
-    }
+    @Builder.Default
+    private List<GrantedAuthority> authorities = new LinkedList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
-
-
-
 
     public Long getId() {
         return id;

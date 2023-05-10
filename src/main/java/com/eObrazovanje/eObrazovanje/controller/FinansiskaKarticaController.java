@@ -1,9 +1,7 @@
 package com.eObrazovanje.eObrazovanje.controller;
 
-import com.eObrazovanje.eObrazovanje.model.dto.StudentDTO;
 import com.eObrazovanje.eObrazovanje.model.dto.UplataDTO;
 import com.eObrazovanje.eObrazovanje.model.entity.FinansijskaKartica;
-import com.eObrazovanje.eObrazovanje.model.entity.Student;
 import com.eObrazovanje.eObrazovanje.model.entity.Uplata;
 import com.eObrazovanje.eObrazovanje.security.UserPrincipal;
 import com.eObrazovanje.eObrazovanje.security.UserPrincipalDetailsService;
@@ -15,10 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.net.Authenticator;
-import java.security.Principal;
 
 @RestController
 @RequestMapping(path = "/api/kartice")
@@ -32,7 +26,7 @@ public class FinansiskaKarticaController {
     UserPrincipalDetailsService prijavljeni;
 
     @PostMapping("/uplate")
-    public ResponseEntity<Uplata> save( @Valid @RequestBody UplataDTO uplataDTO) {
+    public ResponseEntity<Uplata> save( @RequestBody UplataDTO uplataDTO) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal user= (UserPrincipal)prijavljeni.loadUserByUsername(authentication.getName());
@@ -47,6 +41,6 @@ public class FinansiskaKarticaController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal user = (UserPrincipal)prijavljeni.loadUserByUsername(authentication.getName());
 
-        return new ResponseEntity<>(studentService.findOne(user.getId()).getKartica(), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.findById(user.getId()).getKartica(), HttpStatus.OK);
     }
 }

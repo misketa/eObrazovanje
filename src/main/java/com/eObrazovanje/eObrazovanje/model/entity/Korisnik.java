@@ -1,15 +1,13 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -44,6 +42,7 @@ public class Korisnik {
     @Column(name = "blocked", unique = false, nullable = false)
     private boolean blocked;
 
+    @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "users_roles",
@@ -51,10 +50,4 @@ public class Korisnik {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles = new HashSet<>();
-
-    public Korisnik(String ime, String prezime, String korisnickoIme, String lozinka, String jmbg) {
-
-    }
-
-
 }

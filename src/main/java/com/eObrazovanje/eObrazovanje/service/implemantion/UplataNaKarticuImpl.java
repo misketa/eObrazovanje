@@ -20,7 +20,7 @@ public class UplataNaKarticuImpl implements UplataNaKarticuService {
     private FinansijskaKarticaRepository karticarepo;
     @Override
     public Uplata save(Long student_id, int iznos) {
-        Student student=studentService.findOne(student_id);
+        Student student=studentService.findById(student_id);
         FinansijskaKartica kartica = student.getKartica();
 
         kartica.setStanje(kartica.getStanje()+iznos);

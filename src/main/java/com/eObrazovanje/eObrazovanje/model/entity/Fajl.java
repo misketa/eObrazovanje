@@ -1,9 +1,6 @@
 package com.eObrazovanje.eObrazovanje.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
@@ -12,6 +9,7 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -30,6 +28,4 @@ public class Fajl {
 
     @OneToMany(cascade= {ALL}, mappedBy= "fajl")
     private List<Dokument> documents = new ArrayList<Dokument>();
-
-
 }
