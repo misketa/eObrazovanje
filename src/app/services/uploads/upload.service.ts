@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,11 +18,14 @@ export class UploadService {
 
   constructor(private http: HttpClient) {}
 
-  getUploads(): Observable<File[]> {
-    return this.http.get<File[]>(`${this.apiUploadApi}/files`);
+  upload(formData: FormData): Observable<HttpEvent<string[]>> {
+    return this.http.post<string[]>(`${this.apiUploadApi}/upload`, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
   }
 
-  uploadDocuments(file: FormData) {
-    return this.http.post<any>(`${this.apiUploadApi}/upload`, file);
+  getFiles(): Observable<any> {
+    return this.http.get(`${this.apiUploadApi}/files`);
   }
 }

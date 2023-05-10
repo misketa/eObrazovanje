@@ -1,6 +1,11 @@
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+} from '@angular/common/http';
+import { saveAs } from 'file-saver';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { File } from './../../model/File.model';
+import { Observable } from 'rxjs';
 import { UploadService } from './../../services/uploads/upload.service';
 
 @Component({
@@ -9,48 +14,87 @@ import { UploadService } from './../../services/uploads/upload.service';
   styleUrls: ['./dokument.component.css'],
 })
 export class DokumentComponent implements OnInit {
-  files: any[] = [];
-  username: string;
-  uploadForm: FormGroup;
-  uploaded: boolean;
-  fileName: string;
+  filenames: string[] = [];
+  username: string = '';
+  fileStatus = { status: '', requestType: '', percent: 0 };
 
-  constructor(
-    private uploadService: UploadService,
-    private formBuilder: FormBuilder
-  ) {}
+  fileInfos?: Observable<any>;
+
+  constructor(private fileuploadingService: UploadService) {}
 
   ngOnInit(): void {
     const { username } = JSON.parse(localStorage.getItem('user') || '{}');
     this.username = username;
-    this.uploadService
-      .getUploads()
+    this.fileuploadingService
+      .getFiles()
       .subscribe(
         (files) =>
-          (this.files = files.filter((u) => u.name.split('-')[0] === username))
+          (this.fileInfos = files.filter(
+            (u) => u.name.split('-')[0] === username
+          ))
       );
-    this.uploadForm = this.formBuilder.group({
-      file: [''],
-    });
   }
 
-  onFileSelect(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.uploadForm.get('file')?.setValue(file);
-      this.uploaded = true;
-      this.fileName = file.name;
+  onUploadFiles(e): void {
+    const files = e.target.files;
+    const formData = new FormData();
+    for (const file of files) {
+      formData.append('files', file, file.name);
+    }
+    this.fileuploadingService.upload(formData).subscribe(
+      (event) => {
+        console.log(event);
+        this.reportProgress(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+  private reportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
+    switch (httpEvent.type) {
+      case HttpEventType.UploadProgress:
+        this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Uploading... ');
+        break;
+      case HttpEventType.DownloadProgress:
+        this.updateStatus(
+          httpEvent.loaded,
+          httpEvent.total!,
+          'Downloading... '
+        );
+        break;
+      case HttpEventType.ResponseHeader:
+        console.log('Header returned', httpEvent);
+        break;
+      case HttpEventType.Response:
+        if (httpEvent.body instanceof Array) {
+          this.fileStatus.status = 'done';
+          for (const filename of httpEvent.body) {
+            this.filenames.unshift(filename);
+          }
+        } else {
+          saveAs(
+            new File([httpEvent.body!], httpEvent.headers.get('File-Name')!, {
+              type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`,
+            })
+          );
+        }
+        this.fileStatus.status = 'done';
+        break;
+      default:
+        console.log(httpEvent);
+        break;
     }
   }
 
-  onSubmit() {
-    console.log('aaaa');
-    const formData = new FormData();
-    formData.append('file', this.uploadForm.get('file')?.value);
-    formData.append('username', this.username);
-
-    this.uploadService.uploadDocuments(formData).subscribe((data) => {
-      console.log(formData);
-    });
+  private updateStatus(
+    loaded: number,
+    total: number,
+    requestType: string
+  ): void {
+    this.fileStatus.status = 'progress';
+    this.fileStatus.requestType = requestType;
+    this.fileStatus.percent = Math.round((100 * loaded) / total);
   }
 }

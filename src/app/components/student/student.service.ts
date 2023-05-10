@@ -4,10 +4,11 @@ import { HttpResponse, HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
 import { Student } from '../../model/student.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class StudentService {
-  private studentsUrl = 'api/studenti';
+  private studentsUrl = `${environment.apiURL}/api/studenti`;
 
   constructor(private http: HttpClient) {}
 

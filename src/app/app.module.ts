@@ -27,6 +27,7 @@ import { StudentService } from './components/student/student.service';
 import { JwtInterceptor } from './services/auth/interceptor.service';
 import { AuthService } from './services/auth/auth.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     DokumentComponent,
     TestComponent,
     StudentDetailComponent,
+    LoginComponent,
   ],
   imports: [
     HttpClientModule,

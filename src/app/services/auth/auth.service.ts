@@ -25,20 +25,28 @@ export class AuthService {
   }
 
   login(request: LoginRequest): Observable<LoginRequest> {
-    return this.http.post<LoginRequest>(this.apiUrl, request, httpOptions);
+    const response = this.http.post<LoginRequest>(
+      this.apiUrl,
+      request,
+      httpOptions
+    );
+
+    console.log(response);
+    return response;
   }
 
   getToken() {
-    let korisnik = JSON.parse(localStorage.getItem('korisnik') || '{}');
-    return korisnik;
+    let token = JSON.parse(localStorage.getItem('token') || '{}');
+    console.log(token);
+    return token;
   }
 
   logout() {
-    localStorage.removeItem('korisnik');
+    localStorage.removeItem('token');
   }
 
   public isAuthenticated(): boolean {
-    const { token } = JSON.parse(localStorage.getItem('korisnik') || '{}');
+    const { token } = JSON.parse(localStorage.getItem('token') || '{}');
     return !this.jwtHelper.isTokenExpired(token);
   }
 }
